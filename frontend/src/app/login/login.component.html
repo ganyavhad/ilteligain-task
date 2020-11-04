@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <span>LOGIN</span>
+  </mat-toolbar>
+  <mat-card class="my-card">
+     <mat-card-content>
+        <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="login(loginForm.value)"  class="my-form">
+           <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input  matInput  placeholder="Email" formControlName="email" id="email" ngModel>
+              <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+           </mat-form-field> &nbsp;
+           <mat-form-field class="full-width">
+              <mat-label>Password</mat-label>
+              <input  matInput  placeholder="Password" formControlName="password" id="password" ngModel>
+              <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+           </mat-form-field>
+        </form>
+     </mat-card-content>
+     <mat-card-actions>
+        <button  mat-raised-button color="primary" (click)="login(loginForm.value)" [disabled]="!loginForm.valid">LOGIN</button>
+     </mat-card-actions>
+  </mat-card>

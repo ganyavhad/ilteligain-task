@@ -1,0 +1,50 @@
+<mat-toolbar>
+    <span>REGISTER</span>
+  </mat-toolbar>
+  <mat-card class="my-card">
+     <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="login(registerForm.value)"  >
+      <mat-card-content>
+         <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input  matInput  placeholder="Name" formControlName="name" id="name" ngModel>
+            <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+         </mat-form-field>          
+       </mat-card-content>
+      <mat-card-content>
+           <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input  matInput  placeholder="Email" formControlName="email" id="email" ngModel>
+              <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+           </mat-form-field>          
+         </mat-card-content>
+         <mat-card-content>
+            <mat-form-field class="full-width">
+               <mat-label>Password</mat-label>
+               <input  matInput  placeholder="Password" formControlName="password" id="password" ngModel>
+               <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+            </mat-form-field>
+         </mat-card-content>
+         <mat-card-content>
+            <mat-form-field class="full-width">
+               <mat-label>Confirm Password</mat-label>
+               <input  matInput  placeholder="Confirm Password" formControlName="cPassword" id="cpassword" ngModel>
+               <mat-error *ngIf="hasError('cPassword', 'required')">Confirm Password is required</mat-error>
+            </mat-form-field>
+         </mat-card-content>
+         <mat-card-content>
+            <mat-form-field appearance="fill">
+               <mat-label>Role</mat-label>
+               <mat-select matNativeControl formControlName="role" id="role" ngModel>
+                  <mat-option value="">Select Role</mat-option>
+                  <mat-option value="Super Admin">Super Admin</mat-option>
+                  <mat-option value="Admin">Admin</mat-option>
+                  <mat-option value="User">User</mat-option>
+                </mat-select>
+               <mat-error *ngIf="hasError('role', 'required')">Role is required</mat-error>
+            </mat-form-field>
+         </mat-card-content>
+      </form>
+     <mat-card-actions>
+        <button  mat-raised-button color="primary" (click)="register(registerForm.value)" [disabled]="!registerForm.valid">REGISTER</button>
+     </mat-card-actions>
+  </mat-card>
