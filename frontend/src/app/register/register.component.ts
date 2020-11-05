@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-register',
@@ -9,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
-  constructor() { }
+  constructor(public apiService: ApiService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -23,8 +27,22 @@ export class RegisterComponent implements OnInit {
   public hasError = (controlName: string, errorName: string) => {
     return this.registerForm.controls[controlName].hasError(errorName);
   }
-  register(data) {
-    console.log(data)
-  }
 
+  register(data) {
+    this.apiService.register(data).subscribe(
+      (res: any) => {
+        console.log(res);
+        if (res.message === 'Register successful') {
+          this.toastr.success(res.message);
+          this.router.navigate(['/login']);
+        } else {
+          this.toastr.error(res.message);
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error(err.message);
+      }
+    );
+  }
 }

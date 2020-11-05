@@ -6,7 +6,9 @@ let model = {
         try {
 
             let userData = await User.findOne({
-                email: data.email
+                where: {
+                    email: data.email
+                }
             })
             if (userData) {
                 return {
